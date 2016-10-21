@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment;
         if (position == 1)
             fragment = new SearchCardsFragment();
+        else if (position == 2)
+            fragment = new FlashcardsFragment();
         else
             fragment = new HomeFragment();
 

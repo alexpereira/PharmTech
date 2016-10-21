@@ -3,7 +3,7 @@
     <string-array name="drawer_items">
         <item>Home</item>
         <item>Search Cards</item>
-        <!--<item>Flashcards</item>-->
+        <item>Flashcards</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
