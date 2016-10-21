@@ -2,6 +2,7 @@ package com.alexpereira.android.pharmatech10;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -75,15 +76,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectItem(int position) {
         Fragment fragment;
-        if (position == 1)
+        if (position == 1){
             fragment = new SearchCardsFragment();
-        else if (position == 2)
-            fragment = new FlashcardsFragment();
-        else
-            fragment = new HomeFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        }
+        else if (position == 2){
+            Intent intent = new Intent(this, FlashcardsActivity.class);
+            startActivity(intent);
+        }
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        else{
+            fragment = new HomeFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        }
+
+
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 }
