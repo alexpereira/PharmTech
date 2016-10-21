@@ -1,0 +1,191 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Drug of The Day"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_height="270dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            >
+
+            <TextView
+                android:id="@+id/drug_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textSize="20dp"
+                android:text="Ticagrelor"
+                android:textColor="@color/black"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="50dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="12dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:id="@+id/brand_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brand Name:"/>
+            <TextView
+                android:id="@+id/brand_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brillinta®"
+                android:layout_toRightOf="@+id/brand_name_label"
+                android:layout_marginLeft="60dp"/>
+            <TextView
+                android:id="@+id/purpose_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Purpose:"
+                android:layout_below="@+id/brand_name_label"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/purpose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACS"
+                android:layout_toRightOf="@+id/purpose_label"
+                android:layout_marginLeft="85dp"
+                android:layout_below="@+id/brand_name"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/DEA_schedule_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DEA Schedule:"
+                android:layout_below="@+id/purpose_label"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/DEA_schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:layout_toRightOf="@+id/DEA_schedule_label"
+                android:layout_marginLeft="50dp"
+                android:layout_below="@+id/purpose"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/special_concerns_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Special Concerns:"
+                android:layout_below="@+id/DEA_schedule_label"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/special_concerns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:layout_toRightOf="@+id/special_concerns_label"
+                android:layout_marginLeft="29dp"
+                android:layout_below="@+id/DEA_schedule"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/drug_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Drug Category:"
+                android:layout_below="@+id/special_concerns_label"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/drug_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anti-platelet"
+                android:layout_toRightOf="@+id/drug_category_label"
+                android:layout_marginLeft="48dp"
+                android:layout_below="@+id/special_concerns"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/study_topic_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Study Topic:"
+                android:layout_below="@+id/drug_category_label"
+                android:paddingTop="5dp"/>
+            <TextView
+                android:id="@+id/study_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CV"
+                android:layout_toRightOf="@+id/study_topic_label"
+                android:layout_marginLeft="62dp"
+                android:layout_below="@+id/drug_category"
+                android:paddingTop="5dp"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="220dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="220dp">
+
+            <Button
+                android:text="Save"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/button"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/button2"
+                android:layout_toStartOf="@+id/button2"
+                android:layout_marginRight="11dp"
+                android:layout_marginEnd="11dp"/>
+
+            <Button
+                android:text="Audio"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/button2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="12dp"
+                android:layout_marginEnd="12dp"/>
+
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
+
+
