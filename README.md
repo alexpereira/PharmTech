@@ -1,4 +1,4 @@
-# PharmaTech 1.0
+# PharmTech 1.0
 
 Studying using methods involving memorization is already hard enough, so we are creating PharmTech to facilitate the process.
 
