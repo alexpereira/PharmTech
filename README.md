@@ -13,4 +13,7 @@ CIT229
 Created by 
 Alex Pereira, James Sacchettim and Lounis Idir
 
-[![Screen Shot 2016-10-21 at 3.25.43 PM.png](https://s15.postimg.org/7egvbnpej/Screen_Shot_2016_10_21_at_3_25_43_PM.png)](https://postimg.org/image/9vsmix9av/)
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+[![Screen Shot 2016-10-21 at 3.25.43 PM.png](https://s15.postimg.org/7egvbnpej/Screen_Shot_2016_10_21_at_3_25_43_PM.png)](https://postimg.org/image/9vsmix9av/)  |  [![Screen Shot 2016-10-21 at 3.25.43 PM.png](https://s15.postimg.org/7egvbnpej/Screen_Shot_2016_10_21_at_3_25_43_PM.png)](https://postimg.org/image/9vsmix9av/)
+
