@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PharmaTech 1.0</string>
+    <string name="app_name">PharmTech 1.0</string>
     <string-array name="drawer_items">
         <item>Home</item>
         <item>Search Cards</item>

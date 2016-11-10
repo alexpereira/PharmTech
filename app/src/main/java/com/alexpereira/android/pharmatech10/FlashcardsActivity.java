@@ -20,11 +20,11 @@ public class FlashcardsActivity extends AppCompatActivity{
         setContentView(R.layout.activity_flashcards);
 
         setTitle("Flashcards");
+        //setTitle(PharmTech.drugs.get(10).getDrugName());
 
         //Purpose spinner
         Spinner purpose_spinner = (Spinner) findViewById(R.id.purpose_spinner);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
-                R.array.drawer_items, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this,  android.R.layout.simple_spinner_item, PharmTech.drugPurposes);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         purpose_spinner.setAdapter(adapter1);
 
