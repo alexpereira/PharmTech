@@ -2,7 +2,6 @@ package com.alexpereira.android.pharmatech10;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         String[] mItemTitles;
 
@@ -65,13 +63,6 @@ public class MainActivity extends AppCompatActivity {
         return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -81,13 +72,18 @@ public class MainActivity extends AppCompatActivity {
     private void selectItem(int position) {
         Fragment fragment;
         if (position == 1){
-            fragment = new SearchCardsFragment();
+            fragment = new ReviewFragment();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            // TODO: CLEAR OFF FILTER OPTIONS
+            // TODO: SHOW TOOLBAR FILTER MENU BUTTON
         }
         else if (position == 2){
-            Intent intent = new Intent(this, FlashcardsActivity.class);
-            startActivity(intent);
+            fragment = new FlashcardsFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            // TODO: CLEAR OFF FILTER OPTIONS
+            // TODO: SHOW TOOLBAR FILTER MENU BUTTON
         }
 
         else{
@@ -95,11 +91,13 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         }
-
-
         mDrawerLayout.closeDrawer(mDrawerList);
     }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
 }
-
-//TODO CREATE SORTING SYSTEMS FOR CARDS
-
