@@ -20,6 +20,7 @@ public class FlashcardsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Flashcards");
 //        setHasOptionsMenu(true);
     }
 

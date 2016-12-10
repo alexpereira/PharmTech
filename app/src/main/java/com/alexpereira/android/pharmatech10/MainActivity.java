@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private Menu menu;
 
     private static final String TAG = "MyActivity";
 
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
 
@@ -54,11 +54,14 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(  this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
+
                 super.onDrawerClosed(drawerView);
                 Log.i(TAG, "OOOOOOOPEEEEEN");
             }
             @Override
             public void onDrawerOpened(View drawerView) {
+                showMenu(false);
+
                 super.onDrawerOpened(drawerView);
                 Log.i(TAG, "CLOOOOOOOOOOOOOOSED");
                 FragmentManager fm = getFragmentManager();
@@ -76,11 +79,13 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
             Log.d(TAG, "onDrawerOpened: DRAWER OPENED");
+            showMenu(false);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
@@ -132,25 +137,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectItem(int position) {
         Fragment fragment;
+
+        if (position == 0){
+            showMenu(false);
+            fragment = new HomeFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        }
         if (position == 1){
+            showMenu(true);
             fragment = new ReviewFragment();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
             // TODO: CLEAR OFF FILTER OPTIONS
             // TODO: SHOW TOOLBAR FILTER MENU BUTTON
         }
-        else if (position == 2){
+        if (position == 2){
+            showMenu(true);
             fragment = new FlashcardsFragment();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
             // TODO: CLEAR OFF FILTER OPTIONS
             // TODO: SHOW TOOLBAR FILTER MENU BUTTON
-        }
-
-        else{
-            fragment = new HomeFragment();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
@@ -160,5 +168,11 @@ public class MainActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
         }
+    }
+    public void showMenu(boolean showMenu){
+        if(menu == null)
+            return;
+        MenuItem item = menu.findItem(R.id.close_flashcards);
+        item.setVisible(showMenu);
     }
 }
