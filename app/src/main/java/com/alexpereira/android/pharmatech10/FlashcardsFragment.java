@@ -20,7 +20,7 @@ public class FlashcardsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
     }
 
     @Override
@@ -28,25 +28,25 @@ public class FlashcardsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_flashcards, container, false);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.close_flashcards:
-                Fragment fragment;
-                fragment = new FilterFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.filter_frame, fragment).commit();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.close_flashcards:
+//                Fragment fragment;
+//                fragment = new FilterFragment();
+//                FragmentManager fragmentManager = getFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.filter_frame, fragment).commit();
+//                return true;
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//
+//        }
+//    }
 }

@@ -15,7 +15,6 @@ import android.widget.Button;
 
 public class FilterFragment extends DialogFragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
@@ -36,7 +35,6 @@ public class FilterFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getDialog().setCanceledOnTouchOutside(true);
         return dialog;
     }
 

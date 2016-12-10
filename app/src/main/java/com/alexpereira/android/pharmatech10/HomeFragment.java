@@ -3,6 +3,7 @@ package com.alexpereira.android.pharmatech10;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -35,5 +37,11 @@ public class HomeFragment extends Fragment {
         t.setText(drug.getDrugName());
 
         return inflatedView;
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        // Hides menu from home fragment
+        menu.findItem(R.id.close_flashcards).setVisible(false).setEnabled(false);
+        return;
     }
 }

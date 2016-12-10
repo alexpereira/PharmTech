@@ -3,8 +3,9 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="320dp"
             android:background="@drawable/filter_border"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_height="400dp">
+            android:layout_gravity="center_horizontal"
+            android:layout_height="400dp"
+            android:layout_marginTop="30dp">
 
 
     <TextView

@@ -2,11 +2,15 @@ package com.alexpereira.android.pharmatech10;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private static final String TAG = "MyActivity";
 
 
     @Override
@@ -25,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
 
         String[] mItemTitles;
 
@@ -34,33 +42,86 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
+
         mDrawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, mItemTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
 
         mDrawerToggle = new ActionBarDrawerToggle(  this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-            public void onDrawerClosed(View view) {
-                //
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                Log.i(TAG, "OOOOOOOPEEEEEN");
             }
-
+            @Override
             public void onDrawerOpened(View drawerView) {
-               //
+                super.onDrawerOpened(drawerView);
+                Log.i(TAG, "CLOOOOOOOOOOOOOOSED");
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                FilterFragment f = (FilterFragment) fm.findFragmentByTag("filterTag");
+                if (f != null)
+                    ft.remove(f).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).commit();
             }
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
             Fragment fragment = new HomeFragment();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            Log.d(TAG, "onDrawerOpened: DRAWER OPENED");
         }
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+
+        if (item.getItemId() == R.id.close_flashcards)
+            switch (item.getItemId()) {
+                case R.id.close_flashcards:
+
+                    Log.i(TAG, "TESTTTTTT");
+
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    FilterFragment f = (FilterFragment) fm.findFragmentByTag("filterTag");
+
+                    if (f == null) {  // not added
+                        f = new FilterFragment();
+                        ft.add(R.id.filter_frame, f, "filterTag");
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+                    } else {  // already added
+
+                        ft.remove(f);
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+                    }
+
+                    ft.commit();
+
+                    return true;
+
+                default:
+                    return super.onOptionsItemSelected(item);
+
+            }
+
+        else {
+            return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
