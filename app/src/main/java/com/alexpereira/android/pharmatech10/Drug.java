@@ -1,12 +1,11 @@
 package com.alexpereira.android.pharmatech10;
 
-import java.util.ArrayList;
 
 /**
  * Created by alexpereira on 10/22/16.
  */
 
-public class Drug {
+public class Drug{
     private int mDrugID;
     private String mDrugName;
     private String mDrugBrand;
@@ -16,17 +15,21 @@ public class Drug {
     private String mDrugCategory;
     private String mDrugStudyTopic;
 
-//    public Drug(String val, String brand, String purpose, String dea, String special, String category, String topic) {
-//        mDrugName = val;
-//        mDrugBrand = brand;
-//        mDrugPurpose = purpose;
-//        mDrugDEASchedule = dea;
-//        mDrugSpecialConcern = special;
-//        mDrugCategory = category;
-//        mDrugStudyTopic = topic;
-//    }
-    public Drug(){}
-    
+    public Drug() {
+    }
+
+    public Drug(Drug drug){
+
+        this.mDrugBrand = drug.getDrugBrand();
+        this.mDrugCategory = drug.getDrugCategory();
+        this.mDrugDEASchedule = drug.getDrugDEASchedule();
+        this.mDrugName = drug.getDrugName();
+        this.mDrugPurpose = drug.getDrugPurpose();
+        this.mDrugSpecialConcern = drug.getDrugSpecialConcern();
+        this.mDrugStudyTopic = drug.getDrugStudyTopic();
+    }
+
+
     public void setDrugName(String val){ mDrugName = val; }
     public void setDrugBrand(String val){ mDrugBrand = val; }
     public void setDrugPurpose(String val){ mDrugPurpose = val; }

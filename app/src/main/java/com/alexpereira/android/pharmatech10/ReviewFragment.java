@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class ReviewFragment extends Fragment {
     private static final String TAG = "RecyclerViewFragment";
     public static final String ARG_PURPOSE = "purpose";
+    private ArrayList<Drug> filteredDrugs = new ArrayList();
     private String currentPurpose = "";
 
     private ArrayList<Drug> data = PharmTech.drugs;
@@ -56,10 +57,10 @@ public class ReviewFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
-            currentPurpose = args.getString(ARG_PURPOSE);
+            filteredDrugs = (ArrayList<Drug>) args.getSerializable(ARG_PURPOSE);
             data.clear();
-            data.addAll(PharmTech.testDrugs);
-            Log.d(TAG, "PURPOSE ARRIVED: " + currentPurpose);
+            data.addAll(filteredDrugs);
+            Log.d(TAG, "PURPOSE ARRIVED: " + filteredDrugs);
             mAdapter.notifyDataSetChanged();
         }
     }

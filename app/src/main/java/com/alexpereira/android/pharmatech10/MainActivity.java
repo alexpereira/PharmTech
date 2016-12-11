@@ -17,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity implements FilterFragment.onPurposeSelectedListener {
@@ -164,12 +166,12 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     }
 
     @Override
-    public void onPurposeSelected(String purpose) {
+    public void onPurposeSelected(ArrayList<Drug> purpose) {
         //If review fragment is open
         // Create fragment and give it an argument for the selected article
         ReviewFragment newFragment = new ReviewFragment();
         Bundle args = new Bundle();
-        args.putString(ReviewFragment.ARG_PURPOSE, purpose);
+        args.putSerializable(ReviewFragment.ARG_PURPOSE, purpose);
         newFragment.setArguments(args);
 
         FragmentManager fm = getFragmentManager();
@@ -184,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
         transaction.commit();
 
         Log.d(TAG, "PURPOSE BUNDLED: " + purpose);
-
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
