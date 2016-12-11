@@ -35,8 +35,6 @@ public class PharmTech extends Application {
         }
 
 
-
-
         List<String> al = drugPurposes;
         Set<String> hs = new LinkedHashSet<>(al);
         drugPurposes.clear();

@@ -1,21 +1,6 @@
 package com.alexpereira.android.pharmatech10;
 
-/*
-* Copyright (C) 2014 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,19 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Provide views to RecyclerView with data from mDataSet.
- */
+import java.util.ArrayList;
+
+
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private String[] mDataSet;
+    private ArrayList<Drug> mDataSet;
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+
+        private final TextView mDrugName;
+        private final TextView mBrandName;
+        private final TextView mPurpose;
+        private final TextView mDEASchedule;
+        private final TextView mSpecialConcerns;
+        private final TextView mCategory;
+        private final TextView mStudyTopic;
+
+
 
         public ViewHolder(View v) {
             super(v);
@@ -46,11 +40,35 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            textView = (TextView) v.findViewById(R.id.textView);
+            mDrugName = (TextView) v.findViewById(R.id.drug_name);
+            mBrandName = (TextView) v.findViewById(R.id.brand_name);
+            mPurpose = (TextView) v.findViewById(R.id.purpose);
+            mDEASchedule = (TextView) v.findViewById(R.id.DEA_schedule);
+            mSpecialConcerns = (TextView) v.findViewById(R.id.special_concerns);
+            mCategory = (TextView) v.findViewById(R.id.drug_category);
+            mStudyTopic = (TextView) v.findViewById(R.id.study_topic);
         }
 
-        public TextView getTextView() {
-            return textView;
+        public TextView getCardDrugName() {
+            return mDrugName;
+        }
+        public TextView getCardBrandName() {
+            return mBrandName;
+        }
+        public TextView getCardPurpose() {
+            return mPurpose;
+        }
+        public TextView getCardDEASchedule() {
+            return mDEASchedule;
+        }
+        public TextView getCardSpecialConcerns() {
+            return mSpecialConcerns;
+        }
+        public TextView getCardCategory() {
+            return mCategory;
+        }
+        public TextView getCardStudyTopic() {
+            return mStudyTopic;
         }
     }
 
@@ -59,7 +77,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet) {
+    public CustomAdapter(ArrayList<Drug> dataSet) {
         mDataSet = dataSet;
     }
 
@@ -76,16 +94,20 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Log.d(TAG, "Element " + position + " set.");
 
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
-        //viewHolder.getTextView().setText(mDataSet[position]);
+        viewHolder.getCardDrugName().setText(mDataSet.get(position).getDrugName());
+        viewHolder.getCardBrandName().setText(mDataSet.get(position).getDrugBrand());
+        viewHolder.getCardPurpose().setText(mDataSet.get(position).getDrugPurpose());
+        viewHolder.getCardDEASchedule().setText(mDataSet.get(position).getDrugDEASchedule());
+        viewHolder.getCardSpecialConcerns().setText(mDataSet.get(position).getDrugSpecialConcern());
+        viewHolder.getCardCategory().setText(mDataSet.get(position).getDrugCategory());
+        viewHolder.getCardStudyTopic().setText(mDataSet.get(position).getDrugStudyTopic());
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return PharmTech.drugs.size();
     }
 }
