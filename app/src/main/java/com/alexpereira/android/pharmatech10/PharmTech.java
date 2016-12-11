@@ -1,18 +1,9 @@
 package com.alexpereira.android.pharmatech10;
 
 import android.app.Application;
-import android.util.Log;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by alexpereira on 10/22/16.
@@ -21,80 +12,49 @@ import java.util.Set;
 public class PharmTech extends Application {
 
     public static ArrayList<Drug> drugs = null;
-    public static ArrayList<Drug> testDrugs = null;
-    public static ArrayList<String> drugPurposes = new ArrayList();
 
-
+    private PharmatechdbHelper mPharmaTechDB;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-        parseDrugs();
-        testDrugs = new ArrayList();
-        for (Drug drug : drugs) {
-            if(drug.getDrugPurpose().equalsIgnoreCase("Allergies"))
-                testDrugs.add(drug);
-            drugPurposes.add(drug.getDrugPurpose());
-        }
 
-
-        List<String> al = drugPurposes;
-        Set<String> hs = new LinkedHashSet<>(al);
-        drugPurposes.clear();
-        drugPurposes.addAll(hs);
-
-    }
-    public void parseDrugs() {
-        XmlPullParserFactory pullParserFactory;
+        mPharmaTechDB = new PharmatechdbHelper(this);
         try {
-            pullParserFactory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = pullParserFactory.newPullParser();
+            mPharmaTechDB.checkAndCopyDB();
+            mPharmaTechDB.db_OPEN();
+        } catch (SQLiteException e) {
 
-
-            InputStream in_s = getApplicationContext().getAssets().open("drugs.xml");
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-            parser.setInput(in_s, null);
-
-            parseXML(parser);
-
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }
-
-    private void parseXML(XmlPullParser parser) throws XmlPullParserException,IOException
-    {
-
-        int eventType = parser.getEventType();
-        Drug currentDrug = null;
-
-        while (eventType != XmlPullParser.END_DOCUMENT){
-            switch (eventType){
-                case XmlPullParser.START_DOCUMENT:
+        try {
+            // the table name is : Druglist
+            // here is the part that needs to be modified
+            // i think there is a problem with the buffer
+            // the app couldnt load all the 400 drugs at the same time
+            //
+            Cursor mCursor = mPharmaTechDB.mQuery("SELECT * FROM Druglist");
+            if (mCursor != null) {
+                if (mCursor.moveToFirst()) {
                     drugs = new ArrayList();
-                    break;
-                case XmlPullParser.START_TAG:
-                    if (parser.getName().equals("drug")){
-                        currentDrug = new Drug();
-                        Log.i("yoooo", parser.getAttributeValue(null,"Generic_Name"));
-                        currentDrug.setDrugName(parser.getAttributeValue(null,"Generic_Name"));
-                        currentDrug.setDrugBrand(parser.getAttributeValue(null,"Brand_Name"));
-                        currentDrug.setDrugPurpose(parser.getAttributeValue(null,"Purpose"));
-                        currentDrug.setDrugDEASchedule(parser.getAttributeValue(null,"DEA_Schedule"));
-                        currentDrug.setDrugSpecialConcern(parser.getAttributeValue(null,"Special"));
-                        currentDrug.setDrugCategory(parser.getAttributeValue(null,"Category"));
-                        currentDrug.setDrugStudyTopic(parser.getAttributeValue(null,"Study_Topic"));
-                    }
-                    break;
-                case XmlPullParser.END_TAG:
-                    if (parser.getName().equalsIgnoreCase("drug") && currentDrug != null)
-                        drugs.add(currentDrug);
-                    break;
+                    do {
+                        Drug mDrugs = new Drug();
+                        mDrugs.setDrugID(mCursor.getString(0));
+                        mDrugs.setDrugName(mCursor.getString(1));
+                        mDrugs.setDrugBrand(mCursor.getString(2));
+                        mDrugs.setDrugPurpose(mCursor.getString(3));
+                        mDrugs.setDrugDEASchedule(mCursor.getString(4));
+                        mDrugs.setDrugSpecialConcern(mCursor.getString(5));
+                        mDrugs.setDrugCategory(mCursor.getString(6));
+                        mDrugs.setDrugStudyTopic(mCursor.getString(7));
+                        drugs.add(mDrugs);
+
+
+                    } while (mCursor.moveToNext());
+                }
             }
-            eventType = parser.next();
+
+        } catch (SQLiteException e) {
         }
     }
 }

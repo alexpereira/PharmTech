@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:text="Anti-platelet"
             android:layout_toRightOf="@+id/drug_category_label"
-            android:layout_marginLeft="48dp"
+            android:layout_marginLeft="46dp"
             android:layout_below="@+id/special_concerns"
             android:paddingTop="5dp"/>
         <TextView

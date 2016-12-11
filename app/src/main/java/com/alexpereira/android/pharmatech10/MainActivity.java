@@ -104,19 +104,43 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     }
 
 
-    public void filterByPurpose(String drugPickedName) {
+    public void filterDrugs(String drugPurposePicked, String drugCategoryPicked) {
         filteredDrugs.clear();
         for (int i = 0; i < unfilteredDrugs.size(); i++) {
-            Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + drugPickedName.toLowerCase());
-            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugPickedName.toLowerCase())) {
+
+            //Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + drugPurposePicked.toLowerCase());
+
+            // FILTER PURPOSE
+            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugPurposePicked.toLowerCase())) {
+                filteredDrugs.add(unfilteredDrugs.get(i));
+                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
+            }
+
+            // FILTER CATEGORY
+            if (unfilteredDrugs.get(i).getDrugCategory().toLowerCase().equals(drugCategoryPicked.toLowerCase())) {
                 filteredDrugs.add(unfilteredDrugs.get(i));
                 //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
             }
         }
 
-        Log.d(TAG, "PURPOSE SELECTED: " + drugPickedName);
+        //Log.d(TAG, "PURPOSE SELECTED: " + drugPurposePicked);
 
     }
+
+//
+//    public void filterByCategory(String drugCategoryPicked) {
+//        filteredDrugs.clear();
+//        for (int i = 0; i < unfilteredDrugs.size(); i++) {
+//            Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + drugCategoryPicked.toLowerCase());
+//            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugCategoryPicked.toLowerCase())) {
+//                filteredDrugs.add(unfilteredDrugs.get(i));
+//                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
+//            }
+//        }
+//
+//        Log.d(TAG, "PURPOSE SELECTED: " + drugCategoryPicked);
+//
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -189,18 +213,23 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     }
 
     @Override
-    public void onPurposeSelected(String drugPickedName) {
+    public void onPurposeSelected(String drugPurposePicked, String drugCategoryPicked) {
         //If review fragment is open
 
 
-        // Filter
-        filterByPurpose(drugPickedName);
+        // Filters
+        filterDrugs(drugPurposePicked, drugCategoryPicked);
 
 
         // Create fragment and give it an argument for the selected article
         ReviewFragment newFragment = new ReviewFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(ReviewFragment.ARG_PURPOSE, filteredDrugs);
+
+        if(filteredDrugs.isEmpty())
+            args.putParcelableArrayList(ReviewFragment.ARG_PURPOSE, unfilteredDrugs);
+        else
+            args.putParcelableArrayList(ReviewFragment.ARG_PURPOSE, filteredDrugs);
+
         newFragment.setArguments(args);
 
         FragmentManager fm = getFragmentManager();

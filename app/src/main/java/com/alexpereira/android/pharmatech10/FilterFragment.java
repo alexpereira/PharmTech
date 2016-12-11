@@ -23,7 +23,7 @@ import static android.content.ContentValues.TAG;
 
 public class FilterFragment extends DialogFragment {
 
-    private String[] mPurposes = {"Allergies","ACS","AD(H)D","ADHD / Narcolepsy","Allergies","Alzheimers","Antiaddictive","Antianxiety","Antiarthritis","Antibacterial","Antibiotic","Anticoagulant","Anticonvulsant","Antidepressant","Antidepressant/sleep","Antidimentia","Antiemetic","Antiepileptic","Antifungal","Antigout","Antihistamine","Antiinflammatory","Antiplatelet","Antipsychotic","Antitussive","Asthma","Asthma Inhaler","Beta Blocker","BPH","CHF","CHF/HBP","Cholesterol","Cholesterol Combo","COPD","Coronary vasodilator","Corticosteroid","Diabetes","Diabetes Type I","Diabetes Type II","Diuretic","DM type 2","Electrolyte","Estrogen","Expectorant","Flu","Freq. Urination","Fungal infections","GERD","Glaucoma","Gout","HBP","HBP/Angina","Herpes Mgmt.","Hypertension","I.B.S.","Impotence","Incontinence","Long-Acting Insulin","Low T","Migraine","Muscle Relaxer","Narcotic Analgesic","NSAID","NSAID Gel","Ocular Hypertension","Opiate Addiction","Osteoporosis","Overactive Bladder","Pain Relief","Pain, inflammation, antipyretic","Parkinson's","Rheum. arthritis","Shingles Vaccine","Sleep Aid","Smoking addiction","Supplement","Thyroid Hormone","Thyroid replacement","Ulcerative colitis","Urinary tract analgesic","Weight Loss"};
+    private String[] mPurposes = {"Purpose","ACS","AD(H)D","ADHD / Narcolepsy","Allergies","Alzheimers","Antiaddictive","Antianxiety","Antiarthritis","Antibacterial","Antibiotic","Anticoagulant","Anticonvulsant","Antidepressant","Antidepressant/sleep","Antidimentia","Antiemetic","Antiepileptic","Antifungal","Antigout","Antihistamine","Antiinflammatory","Antiplatelet","Antipsychotic","Antitussive","Asthma","Asthma Inhaler","Beta Blocker","BPH","CHF","CHF/HBP","Cholesterol","Cholesterol Combo","COPD","Coronary vasodilator","Corticosteroid","Diabetes","Diabetes Type I","Diabetes Type II","Diuretic","DM type 2","Electrolyte","Estrogen","Expectorant","Flu","Freq. Urination","Fungal infections","GERD","Glaucoma","Gout","HBP","HBP/Angina","Herpes Mgmt.","Hypertension","I.B.S.","Impotence","Incontinence","Long-Acting Insulin","Low T","Migraine","Muscle Relaxer","Narcotic Analgesic","NSAID","NSAID Gel","Ocular Hypertension","Opiate Addiction","Osteoporosis","Overactive Bladder","Pain Relief","Pain, inflammation, antipyretic","Parkinson's","Rheum. arthritis","Shingles Vaccine","Sleep Aid","Smoking addiction","Supplement","Thyroid Hormone","Thyroid replacement","Ulcerative colitis","Urinary tract analgesic","Weight Loss"};
     private String[] mCategory = {"Category","ACE Inhibitor","Amphetamine","Analgesic","Anti-coagulent","Anti-Depressant/sleep","Anti-fungal","Anti-histamine","Anti-infective","Anti-platelet","Anti-viral","Antibacterial","Anticholinergic","ARB","Benzodiazepine","Beta stimulant","Beta-blocker","Bisphosphonate","Calc. Chan. Blocker","Cardiovascualr","Cardiovascular","Cardivascular","Cephalosporin","CNS","Corticosteroid","Diabetes","Diuretic","Endocrine","GI","H-2 blocker","Hormone","Hypnotic","K replacement","Long-Acting Insulin","Macrolide","Musculo-skeletal","non-opiate","NSAID","NSAID (Arthritis)","Ophthalmic","Opiate","Penicillin","PPI","Quinolone","Rapid-Acting Insulin","Respiratory","SNRI","SSRI","Statin","Tetracycline","Topical analgesic","Tricyclic","Urinary","Vaccine","Vitamin"};
     private String[] mStudyTopic = {"Study Topic","Analgesic","Anti-infective","CNS","CV","Derm","DM/Endocrine","Eye","GI","Heme","Musculo-skeletal","Respiratory","Skin","Urine"};
 
@@ -32,10 +32,11 @@ public class FilterFragment extends DialogFragment {
 
     onPurposeSelectedListener mCallback;
     private String mPurposePicked;
+    private String mCategoryPicked;
 
     // Container Activity must implement this interface
     public interface onPurposeSelectedListener {
-        public abstract void onPurposeSelected(String purpose);
+        public abstract void onPurposeSelected(String purpose, String category);
     }
 
     @Override
@@ -119,6 +120,29 @@ public class FilterFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 mPurposePicked = mPurposes[position];
+                if(position!=0)
+                    button.setText("APPLY FILTERS");
+                else
+                    button.setText("RESET");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
+        category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                mCategoryPicked = mCategory[position];
+                if(position!=0)
+                    button.setText("APPLY FILTERS");
+                else
+                    button.setText("RESET");
             }
 
             @Override
@@ -133,7 +157,7 @@ public class FilterFragment extends DialogFragment {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCallback.onPurposeSelected(mPurposePicked);
+                mCallback.onPurposeSelected(mPurposePicked, mCategoryPicked);
                 dismiss();
             }
         });

@@ -32,7 +32,7 @@ public class Drug implements Parcelable{
         this.mDrugStudyTopic = drug.getDrugStudyTopic();
     }
 
-
+    public void setDrugID(String val){ mDrugID = Integer.parseInt(val) ; }
     public void setDrugName(String val){ mDrugName = val; }
     public void setDrugBrand(String val){ mDrugBrand = val; }
     public void setDrugPurpose(String val){ mDrugPurpose = val; }
@@ -41,6 +41,7 @@ public class Drug implements Parcelable{
     public void setDrugCategory(String val){ mDrugCategory = val; }
     public void setDrugStudyTopic(String val){ mDrugStudyTopic = val; }
 
+    public int getDrugID() { return mDrugID; }
     public String getDrugName() { return mDrugName; }
     public String getDrugBrand() { return mDrugBrand; }
     public String getDrugPurpose() { return mDrugPurpose; }
