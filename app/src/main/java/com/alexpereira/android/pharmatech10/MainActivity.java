@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     private ActionBarDrawerToggle mDrawerToggle;
     private Menu menu;
 
+    private ArrayList<Drug> unfilteredDrugs;
+    private ArrayList<Drug> filteredDrugs;
+
     private static final String TAG = "MyActivity";
 
 
@@ -35,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        unfilteredDrugs = new ArrayList<>();
+        filteredDrugs = new ArrayList<>();
+        unfilteredDrugs = cloneList(PharmTech.drugs);
 
 
 
@@ -93,6 +101,21 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
+    }
+
+
+    public void filterByPurpose(String drugPickedName) {
+        filteredDrugs.clear();
+        for (int i = 0; i < unfilteredDrugs.size(); i++) {
+            Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + drugPickedName.toLowerCase());
+            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugPickedName.toLowerCase())) {
+                filteredDrugs.add(unfilteredDrugs.get(i));
+                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
+            }
+        }
+
+        Log.d(TAG, "PURPOSE SELECTED: " + drugPickedName);
+
     }
 
     @Override
@@ -166,12 +189,18 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     }
 
     @Override
-    public void onPurposeSelected(ArrayList<Drug> purpose) {
+    public void onPurposeSelected(String drugPickedName) {
         //If review fragment is open
+
+
+        // Filter
+        filterByPurpose(drugPickedName);
+
+
         // Create fragment and give it an argument for the selected article
         ReviewFragment newFragment = new ReviewFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ReviewFragment.ARG_PURPOSE, purpose);
+        args.putParcelableArrayList(ReviewFragment.ARG_PURPOSE, filteredDrugs);
         newFragment.setArguments(args);
 
         FragmentManager fm = getFragmentManager();
@@ -185,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
         // Commit the transaction
         transaction.commit();
 
-        Log.d(TAG, "PURPOSE BUNDLED: " + purpose);
+        Log.d(TAG, "PURPOSE BUNDLED: " + filteredDrugs);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -199,5 +228,13 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
             return;
         MenuItem item = menu.findItem(R.id.close_flashcards);
         item.setVisible(showMenu);
+    }
+
+    public static ArrayList<Drug> cloneList(ArrayList<Drug> drugs) {
+        ArrayList<Drug> clonedList = new ArrayList<Drug>(drugs.size());
+        for (Drug drug : drugs) {
+            clonedList.add(new Drug(drug));
+        }
+        return clonedList;
     }
 }

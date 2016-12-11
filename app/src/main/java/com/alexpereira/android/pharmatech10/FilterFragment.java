@@ -27,14 +27,15 @@ public class FilterFragment extends DialogFragment {
     private String[] mCategory = {"Category","ACE Inhibitor","Amphetamine","Analgesic","Anti-coagulent","Anti-Depressant/sleep","Anti-fungal","Anti-histamine","Anti-infective","Anti-platelet","Anti-viral","Antibacterial","Anticholinergic","ARB","Benzodiazepine","Beta stimulant","Beta-blocker","Bisphosphonate","Calc. Chan. Blocker","Cardiovascualr","Cardiovascular","Cardivascular","Cephalosporin","CNS","Corticosteroid","Diabetes","Diuretic","Endocrine","GI","H-2 blocker","Hormone","Hypnotic","K replacement","Long-Acting Insulin","Macrolide","Musculo-skeletal","non-opiate","NSAID","NSAID (Arthritis)","Ophthalmic","Opiate","Penicillin","PPI","Quinolone","Rapid-Acting Insulin","Respiratory","SNRI","SSRI","Statin","Tetracycline","Topical analgesic","Tricyclic","Urinary","Vaccine","Vitamin"};
     private String[] mStudyTopic = {"Study Topic","Analgesic","Anti-infective","CNS","CV","Derm","DM/Endocrine","Eye","GI","Heme","Musculo-skeletal","Respiratory","Skin","Urine"};
 
-    private ArrayList<Drug> unfilteredDrugs;
-    private ArrayList<Drug> filteredDrugs;
+//    private ArrayList<Drug> unfilteredDrugs;
+//    private ArrayList<Drug> filteredDrugs;
 
     onPurposeSelectedListener mCallback;
+    private String mPurposePicked;
 
     // Container Activity must implement this interface
     public interface onPurposeSelectedListener {
-        public abstract void onPurposeSelected(ArrayList<Drug> purpose);
+        public abstract void onPurposeSelected(String purpose);
     }
 
     @Override
@@ -54,10 +55,10 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        unfilteredDrugs = new ArrayList<>();
-        filteredDrugs = new ArrayList<>();
-        unfilteredDrugs = cloneList(PharmTech.drugs);
+//
+//        unfilteredDrugs = new ArrayList<>();
+//        filteredDrugs = new ArrayList<>();
+//        unfilteredDrugs = cloneList(PharmTech.drugs);
 
 
         Context context = getActivity().getApplicationContext();
@@ -69,6 +70,20 @@ public class FilterFragment extends DialogFragment {
 
 
     }
+
+//    public ArrayList<Drug> filterByPurpose(int position) {
+//        for (int i = 0; i < unfilteredDrugs.size(); i++) {
+//            Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + mPurposes[position].toLowerCase());
+//            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(mPurposes[position].toLowerCase())) {
+//                filteredDrugs.add(unfilteredDrugs.get(i));
+//                Log.d(TAG, "DRUG ADDED: " + unfilteredDrugs.get(i));
+//            }
+//        }
+//
+//        Log.d(TAG, "PURPOSE SELECTED: " + mPurposes[position]);
+//        return filteredDrugs;
+//
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,15 +118,7 @@ public class FilterFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                for (int i = 0; i < unfilteredDrugs.size(); i++) {
-                    Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + mPurposes[position].toLowerCase());
-                    if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(mPurposes[position].toLowerCase())) {
-                        filteredDrugs.add(unfilteredDrugs.get(i));
-                        Log.d(TAG, "DRUG ADDED: " + unfilteredDrugs.get(i));
-                    }
-                }
-
-                Log.d(TAG, "PURPOSE SELECTED: " + mPurposes[position]);
+                mPurposePicked = mPurposes[position];
             }
 
             @Override
@@ -123,9 +130,10 @@ public class FilterFragment extends DialogFragment {
 
 
 
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCallback.onPurposeSelected(filteredDrugs);
+                mCallback.onPurposeSelected(mPurposePicked);
                 dismiss();
             }
         });
@@ -153,9 +161,9 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        filteredDrugs.clear();
-        unfilteredDrugs.clear();
-        unfilteredDrugs.addAll(PharmTech.drugs);
+//        filteredDrugs.clear();
+//        unfilteredDrugs.clear();
+//        unfilteredDrugs.addAll(PharmTech.drugs);
 
         Context context = getActivity().getApplicationContext();
         CharSequence text = "FilterFragment onDismiss";
@@ -252,12 +260,12 @@ public class FilterFragment extends DialogFragment {
         return dialog;
     }
 
-    public static ArrayList<Drug> cloneList(ArrayList<Drug> drugs) {
-        ArrayList<Drug> clonedList = new ArrayList<Drug>(drugs.size());
-        for (Drug drug : drugs) {
-            clonedList.add(new Drug(drug));
-        }
-        return clonedList;
-    }
+//    public static ArrayList<Drug> cloneList(ArrayList<Drug> drugs) {
+//        ArrayList<Drug> clonedList = new ArrayList<Drug>(drugs.size());
+//        for (Drug drug : drugs) {
+//            clonedList.add(new Drug(drug));
+//        }
+//        return clonedList;
+//    }
 
 }

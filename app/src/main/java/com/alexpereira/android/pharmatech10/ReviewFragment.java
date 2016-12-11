@@ -9,9 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ReviewFragment extends Fragment {
+public class ReviewFragment extends Fragment  implements Serializable{
     private static final String TAG = "RecyclerViewFragment";
     public static final String ARG_PURPOSE = "purpose";
     private ArrayList<Drug> filteredDrugs = new ArrayList();
@@ -57,9 +58,12 @@ public class ReviewFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
-            filteredDrugs = (ArrayList<Drug>) args.getSerializable(ARG_PURPOSE);
+            filteredDrugs = args.getParcelableArrayList(ARG_PURPOSE);
             data.clear();
-            data.addAll(filteredDrugs);
+            for (Drug drug: filteredDrugs) {
+                data.add(drug);
+            }
+
             Log.d(TAG, "PURPOSE ARRIVED: " + filteredDrugs);
             mAdapter.notifyDataSetChanged();
         }
