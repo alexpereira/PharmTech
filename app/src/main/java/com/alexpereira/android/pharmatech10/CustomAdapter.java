@@ -1,6 +1,5 @@
 package com.alexpereira.android.pharmatech10;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,8 +73,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     /**
      * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
     public CustomAdapter(ArrayList<Drug> dataSet) {
         mDataSet = dataSet;

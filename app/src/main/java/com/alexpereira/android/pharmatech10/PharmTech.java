@@ -21,6 +21,7 @@ import java.util.Set;
 public class PharmTech extends Application {
 
     public static ArrayList<Drug> drugs = null;
+    public static ArrayList<Drug> testDrugs = null;
     public static ArrayList<String> drugPurposes = new ArrayList();
 
 
@@ -30,7 +31,10 @@ public class PharmTech extends Application {
     public void onCreate() {
         super.onCreate();
         parseDrugs();
+        testDrugs = new ArrayList();
         for (Drug drug : drugs) {
+            if(drug.getDrugPurpose().equalsIgnoreCase("Allergies"))
+                testDrugs.add(drug);
             drugPurposes.add(drug.getDrugPurpose());
         }
 
@@ -39,12 +43,6 @@ public class PharmTech extends Application {
         Set<String> hs = new LinkedHashSet<>(al);
         drugPurposes.clear();
         drugPurposes.addAll(hs);
-
-
-
-        // Adding hints
-        drugPurposes.add(0,"Purpose");
-
 
     }
     public void parseDrugs() {

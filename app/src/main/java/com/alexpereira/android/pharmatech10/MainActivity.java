@@ -17,7 +17,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import static android.content.ContentValues.TAG;
+
+public class MainActivity extends AppCompatActivity implements FilterFragment.onPurposeSelectedListener {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -150,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
             // TODO: CLEAR OFF FILTER OPTIONS
-            // TODO: SHOW TOOLBAR FILTER MENU BUTTON
         }
         if (position == 2){
             showMenu(true);
@@ -158,9 +159,32 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
             // TODO: CLEAR OFF FILTER OPTIONS
-            // TODO: SHOW TOOLBAR FILTER MENU BUTTON
         }
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    @Override
+    public void onPurposeSelected(String purpose) {
+        //If review fragment is open
+        // Create fragment and give it an argument for the selected article
+        ReviewFragment newFragment = new ReviewFragment();
+        Bundle args = new Bundle();
+        args.putString(ReviewFragment.ARG_PURPOSE, purpose);
+        newFragment.setArguments(args);
+
+        FragmentManager fm = getFragmentManager();
+
+        FragmentTransaction transaction = fm.beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.content_frame, newFragment);
+
+        // Commit the transaction
+        transaction.commit();
+
+        Log.d(TAG, "PURPOSE BUNDLED: " + purpose);
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
