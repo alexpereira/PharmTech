@@ -24,6 +24,8 @@ public class PharmTech extends Application {
     public static ArrayList<String> drugPurposes = new ArrayList();
 
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,6 +41,11 @@ public class PharmTech extends Application {
         Set<String> hs = new LinkedHashSet<>(al);
         drugPurposes.clear();
         drugPurposes.addAll(hs);
+
+
+
+        // Adding hints
+        drugPurposes.add(0,"Purpose");
 
 
     }
