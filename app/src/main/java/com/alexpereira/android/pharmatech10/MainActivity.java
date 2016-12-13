@@ -104,11 +104,9 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     }
 
 
-    public void filterDrugs(String drugPurposePicked, String drugCategoryPicked) {
+    public void filterDrugs(String drugPurposePicked, String drugCategoryPicked, String studyTopicPicked) {
         filteredDrugs.clear();
         for (int i = 0; i < unfilteredDrugs.size(); i++) {
-
-            //Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + drugPurposePicked.toLowerCase());
 
             // FILTER PURPOSE
             if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugPurposePicked.toLowerCase())) {
@@ -121,13 +119,16 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
                 filteredDrugs.add(unfilteredDrugs.get(i));
                 //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
             }
+
+            // FILTER STUDY TOPIC
+            if (unfilteredDrugs.get(i).getDrugCategory().toLowerCase().equals(studyTopicPicked.toLowerCase())) {
+                filteredDrugs.add(unfilteredDrugs.get(i));
+                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
+            }
         }
-
-        //Log.d(TAG, "PURPOSE SELECTED: " + drugPurposePicked);
-
     }
 
-//
+
 //    public void filterByCategory(String drugCategoryPicked) {
 //        filteredDrugs.clear();
 //        for (int i = 0; i < unfilteredDrugs.size(); i++) {
@@ -213,12 +214,12 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     }
 
     @Override
-    public void onPurposeSelected(String drugPurposePicked, String drugCategoryPicked) {
+    public void onPurposeSelected(String drugPurposePicked, String drugCategoryPicked, String studyTopicPicked) {
         //If review fragment is open
 
 
         // Filters
-        filterDrugs(drugPurposePicked, drugCategoryPicked);
+        filterDrugs(drugPurposePicked, drugCategoryPicked, studyTopicPicked);
 
 
         // Create fragment and give it an argument for the selected article

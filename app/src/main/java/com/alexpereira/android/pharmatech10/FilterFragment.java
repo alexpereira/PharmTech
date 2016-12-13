@@ -27,16 +27,22 @@ public class FilterFragment extends DialogFragment {
     private String[] mCategory = {"Category","ACE Inhibitor","Amphetamine","Analgesic","Anti-coagulent","Anti-Depressant/sleep","Anti-fungal","Anti-histamine","Anti-infective","Anti-platelet","Anti-viral","Antibacterial","Anticholinergic","ARB","Benzodiazepine","Beta stimulant","Beta-blocker","Bisphosphonate","Calc. Chan. Blocker","Cardiovascualr","Cardiovascular","Cardivascular","Cephalosporin","CNS","Corticosteroid","Diabetes","Diuretic","Endocrine","GI","H-2 blocker","Hormone","Hypnotic","K replacement","Long-Acting Insulin","Macrolide","Musculo-skeletal","non-opiate","NSAID","NSAID (Arthritis)","Ophthalmic","Opiate","Penicillin","PPI","Quinolone","Rapid-Acting Insulin","Respiratory","SNRI","SSRI","Statin","Tetracycline","Topical analgesic","Tricyclic","Urinary","Vaccine","Vitamin"};
     private String[] mStudyTopic = {"Study Topic","Analgesic","Anti-infective","CNS","CV","Derm","DM/Endocrine","Eye","GI","Heme","Musculo-skeletal","Respiratory","Skin","Urine"};
 
+    private Spinner purpose_spinner;
+    private Spinner category_spinner;
+    private Spinner study_topic_spinner;
+    private Button button;
+
 //    private ArrayList<Drug> unfilteredDrugs;
 //    private ArrayList<Drug> filteredDrugs;
 
     onPurposeSelectedListener mCallback;
     private String mPurposePicked;
     private String mCategoryPicked;
+    private String mStudyTopicPicked;
 
     // Container Activity must implement this interface
     public interface onPurposeSelectedListener {
-        public abstract void onPurposeSelected(String purpose, String category);
+        public abstract void onPurposeSelected(String purpose, String category, String study_topic);
     }
 
     @Override
@@ -93,11 +99,11 @@ public class FilterFragment extends DialogFragment {
 
         // Initializing widgets
 
-        Spinner purpose_spinner = (Spinner) view.findViewById(R.id.spinner1);
-        Spinner category_spinner = (Spinner) view.findViewById(R.id.spinner2);
-        Spinner study_topic_spinner = (Spinner) view.findViewById(R.id.spinner3);
+        purpose_spinner = (Spinner) view.findViewById(R.id.spinner1);
+        category_spinner = (Spinner) view.findViewById(R.id.spinner2);
+        study_topic_spinner = (Spinner) view.findViewById(R.id.spinner3);
 
-        final Button button = (Button) view.findViewById(R.id.button1);
+        button = (Button) view.findViewById(R.id.button1);
 
         //Purpose spinner
         ArrayAdapter<String> adapter1 = new ArrayAdapter<> (getActivity().getBaseContext(),  android.R.layout.simple_spinner_item, mPurposes);
@@ -120,10 +126,7 @@ public class FilterFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 mPurposePicked = mPurposes[position];
-                if(position!=0)
-                    button.setText("APPLY FILTERS");
-                else
-                    button.setText("RESET");
+                dynamicButton();
             }
 
             @Override
@@ -139,10 +142,22 @@ public class FilterFragment extends DialogFragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 mCategoryPicked = mCategory[position];
-                if(position!=0)
-                    button.setText("APPLY FILTERS");
-                else
-                    button.setText("RESET");
+                dynamicButton();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        study_topic_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                mStudyTopicPicked = mStudyTopic[position];
+                dynamicButton();
             }
 
             @Override
@@ -157,7 +172,7 @@ public class FilterFragment extends DialogFragment {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCallback.onPurposeSelected(mPurposePicked, mCategoryPicked);
+                mCallback.onPurposeSelected(mPurposePicked, mCategoryPicked, mStudyTopicPicked);
                 dismiss();
             }
         });
@@ -175,7 +190,14 @@ public class FilterFragment extends DialogFragment {
 
     }
 
-
+    public void dynamicButton(){
+        if( purpose_spinner.getSelectedItemPosition() != 0 ||
+            category_spinner.getSelectedItemPosition() != 0 ||
+            study_topic_spinner.getSelectedItemPosition() != 0)
+            button.setText("APPLY FILTERS");
+        else
+            button.setText("RESET");
+    }
 
     @Override
     public void onCancel(DialogInterface dialog) {

@@ -3,7 +3,11 @@ package com.alexpereira.android.pharmatech10;
 import android.app.Application;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
+
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by alexpereira on 10/22/16.
@@ -14,6 +18,8 @@ public class PharmTech extends Application {
     public static ArrayList<Drug> drugs = null;
 
     private PharmatechdbHelper mPharmaTechDB;
+
+    private int count =0;
 
 
     @Override
@@ -48,9 +54,10 @@ public class PharmTech extends Application {
                         mDrugs.setDrugCategory(mCursor.getString(6));
                         mDrugs.setDrugStudyTopic(mCursor.getString(7));
                         drugs.add(mDrugs);
-
+                        count++;
 
                     } while (mCursor.moveToNext());
+                    Log.d(TAG, "DRUGS TOTAL: " + count);
                 }
             }
 

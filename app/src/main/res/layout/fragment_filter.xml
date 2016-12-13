@@ -79,6 +79,7 @@
         android:layout_marginRight="15dp"
         android:textSize="18dp"
         android:background="@android:color/transparent"
-        android:textColor="@color/purple"/>
+        android:textColor="@color/purple"
+        android:textAlignment="textEnd"/>
 
 </GridLayout>
