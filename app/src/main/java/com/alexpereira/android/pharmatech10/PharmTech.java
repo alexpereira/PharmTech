@@ -17,7 +17,7 @@ public class PharmTech extends Application {
 
     public static ArrayList<Drug> drugs = null;
 
-    private PharmatechdbHelper mPharmaTechDB;
+    private TestAdapter mDbHelper;
 
     private int count =0;
 
@@ -26,20 +26,15 @@ public class PharmTech extends Application {
     public void onCreate() {
         super.onCreate();
 
-        mPharmaTechDB = new PharmatechdbHelper(this);
+        mDbHelper= new TestAdapter(this);
         try {
-            mPharmaTechDB.checkAndCopyDB();
-            mPharmaTechDB.db_OPEN();
+            mDbHelper.createDatabase();
+            mDbHelper.open();
         } catch (SQLiteException e) {
 
         }
         try {
-            // the table name is : Druglist
-            // here is the part that needs to be modified
-            // i think there is a problem with the buffer
-            // the app couldnt load all the 400 drugs at the same time
-            //
-            Cursor mCursor = mPharmaTechDB.mQuery("SELECT * FROM Druglist");
+            Cursor mCursor = mDbHelper.getTestData();
             if (mCursor != null) {
                 if (mCursor.moveToFirst()) {
                     drugs = new ArrayList();
@@ -59,6 +54,7 @@ public class PharmTech extends Application {
                     } while (mCursor.moveToNext());
                     Log.d(TAG, "DRUGS TOTAL: " + count);
                 }
+                mDbHelper.close();
             }
 
         } catch (SQLiteException e) {
