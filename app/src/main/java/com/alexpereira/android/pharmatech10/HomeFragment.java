@@ -18,6 +18,7 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
     }
 
+    // GETTING RANDOM DRUG
     Drug drug = PharmTech.drugs.get(new Random().nextInt(PharmTech.drugs.size()));
 
     @Override

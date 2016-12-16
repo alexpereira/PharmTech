@@ -93,7 +93,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         viewHolder.getCardDrugName().setText(mDataSet.get(position).getDrugName());
-        viewHolder.getCardBrandName().setText(mDataSet.get(position).getDrugBrand());
+        viewHolder.getCardBrandName().setText(mDataSet.get(position).getDrugBrand().replace("&#174;","®"));
         viewHolder.getCardPurpose().setText(mDataSet.get(position).getDrugPurpose());
         viewHolder.getCardDEASchedule().setText(mDataSet.get(position).getDrugDEASchedule());
         viewHolder.getCardSpecialConcerns().setText(mDataSet.get(position).getDrugSpecialConcern());

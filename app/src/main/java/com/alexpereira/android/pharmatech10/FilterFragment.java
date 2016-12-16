@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,23 +16,141 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
-
 public class FilterFragment extends DialogFragment {
 
-    private String[] mPurposes = {"Purpose","ACS","AD(H)D","ADHD / Narcolepsy","Allergies","Alzheimers","Antiaddictive","Antianxiety","Antiarthritis","Antibacterial","Antibiotic","Anticoagulant","Anticonvulsant","Antidepressant","Antidepressant/sleep","Antidimentia","Antiemetic","Antiepileptic","Antifungal","Antigout","Antihistamine","Antiinflammatory","Antiplatelet","Antipsychotic","Antitussive","Asthma","Asthma Inhaler","Beta Blocker","BPH","CHF","CHF/HBP","Cholesterol","Cholesterol Combo","COPD","Coronary vasodilator","Corticosteroid","Diabetes","Diabetes Type I","Diabetes Type II","Diuretic","DM type 2","Electrolyte","Estrogen","Expectorant","Flu","Freq. Urination","Fungal infections","GERD","Glaucoma","Gout","HBP","HBP/Angina","Herpes Mgmt.","Hypertension","I.B.S.","Impotence","Incontinence","Long-Acting Insulin","Low T","Migraine","Muscle Relaxer","Narcotic Analgesic","NSAID","NSAID Gel","Ocular Hypertension","Opiate Addiction","Osteoporosis","Overactive Bladder","Pain Relief","Pain, inflammation, antipyretic","Parkinson's","Rheum. arthritis","Shingles Vaccine","Sleep Aid","Smoking addiction","Supplement","Thyroid Hormone","Thyroid replacement","Ulcerative colitis","Urinary tract analgesic","Weight Loss"};
-    private String[] mCategory = {"Category","ACE Inhibitor","Amphetamine","Analgesic","Anti-coagulent","Anti-Depressant/sleep","Anti-fungal","Anti-histamine","Anti-infective","Anti-platelet","Anti-viral","Antibacterial","Anticholinergic","ARB","Benzodiazepine","Beta stimulant","Beta-blocker","Bisphosphonate","Calc. Chan. Blocker","Cardiovascualr","Cardiovascular","Cardivascular","Cephalosporin","CNS","Corticosteroid","Diabetes","Diuretic","Endocrine","GI","H-2 blocker","Hormone","Hypnotic","K replacement","Long-Acting Insulin","Macrolide","Musculo-skeletal","non-opiate","NSAID","NSAID (Arthritis)","Ophthalmic","Opiate","Penicillin","PPI","Quinolone","Rapid-Acting Insulin","Respiratory","SNRI","SSRI","Statin","Tetracycline","Topical analgesic","Tricyclic","Urinary","Vaccine","Vitamin"};
-    private String[] mStudyTopic = {"Study Topic","Analgesic","Anti-infective","CNS","CV","Derm","DM/Endocrine","Eye","GI","Heme","Musculo-skeletal","Respiratory","Skin","Urine"};
+    private String[] mPurposes = {"Purpose",
+            "ACS",
+            "AD(H)D",
+            "Allergies",
+            "Alzheimers",
+            "Anti-Anxiety",
+            "Anti-Depressant",
+            "Anti-Depressant/sleep",
+            "Anti-Dimentia",
+            "Anti-inflammatory",
+            "Anti-Psychotic",
+            "Antibacterial",
+            "Antibiotic",
+            "Anticoagulant",
+            "Anticonvulsant",
+            "Antiemetic",
+            "Antihistamine",
+            "Antitussive",
+            "Asthma",
+            "Beta Blocker",
+            "BPH",
+            "CHF",
+            "CHF/HBP",
+            "Cholesterol",
+            "COPD",
+            "Coronary vasodilator",
+            "Diabetes Type 2",
+            "Diabetes Type I",
+            "Diuretic",
+            "Electrolyte",
+            "Estrogen Replacement",
+            "Expectorant",
+            "Flu",
+            "Frequent Urination",
+            "Fungal infections",
+            "GERD",
+            "Glaucoma",
+            "Gout",
+            "HBP",
+            "HBP/Angina",
+            "Herpes Mgmt.",
+            "I.B.S.",
+            "Impotence",
+            "Incontinence",
+            "Low T",
+            "Migraine",
+            "Muscle Relaxer",
+            "Opiate Addiction",
+            "Osteoporosis",
+            "Overactive Bladder",
+            "Pain Relief",
+            "Parkinson's",
+            "Rheumatoid Arthritis",
+            "Shingles Vaccine",
+            "Sleep",
+            "Sleep Aid",
+            "Smoking addiction",
+            "Thyroid replacement",
+            "Ulcerative colitis",
+            "Urinary tract analgesic",
+            "Vitamin Supplement",
+            "Weight Loss"};
+    private String[] mCategory = {"Category",
+            "ACE inhibitor",
+            "Amphetamine",
+            "Anti-Depressant/sleep",
+            "Anti-fungal",
+            "Anti-histamine",
+            "Anti-infective",
+            "Anti-platelet",
+            "Anti-viral",
+            "Antibacterial",
+            "Anticholinergic",
+            "Anticoagulent",
+            "ARB",
+            "Benzodiazepine",
+            "Beta stimulant",
+            "Beta-blocker",
+            "Bisphosphonate",
+            "Cardiovascular",
+            "CCB",
+            "Cephalosporin",
+            "CNS",
+            "Corticosteroid",
+            "Diabetes",
+            "Diuretic",
+            "GI",
+            "H-2 blocker",
+            "Hormone",
+            "Hypnotic",
+            "K replacement",
+            "Macrolide",
+            "Marcrolide",
+            "Musclo-skeletal",
+            "Musculo-skeletal",
+            "Musculoskeletal",
+            "non-opiate",
+            "NSAID",
+            "Ophthalmic",
+            "Opiate",
+            "Penicillin",
+            "PPI",
+            "Quinolone",
+            "Respiratory",
+            "SNRI",
+            "SSRI",
+            "Statin",
+            "Tetracycline",
+            "Topical analgesic",
+            "Tricyclic",
+            "Urinary",
+            "Vaccine",
+            "Vitamin"};
+    private String[] mStudyTopic = {"Study Topic",
+            "Analgesics",
+            "Anti-Infectives",
+            "CNS",
+            "CV",
+            "Derm",
+            "Dermatology",
+            "DM/Endocrine",
+            "Eyes",
+            "GI System",
+            "Hematology",
+            "Musculo-Skeletal System",
+            "Respiratory System",
+            "Urinary System"};
 
     private Spinner purpose_spinner;
     private Spinner category_spinner;
     private Spinner study_topic_spinner;
     private Button button;
 
-//    private ArrayList<Drug> unfilteredDrugs;
-//    private ArrayList<Drug> filteredDrugs;
 
     onPurposeSelectedListener mCallback;
     private String mPurposePicked;
@@ -62,12 +179,6 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
-//        unfilteredDrugs = new ArrayList<>();
-//        filteredDrugs = new ArrayList<>();
-//        unfilteredDrugs = cloneList(PharmTech.drugs);
-
-
         Context context = getActivity().getApplicationContext();
         CharSequence text = "FilterFragment onCreate";
         int duration = Toast.LENGTH_SHORT;
@@ -77,20 +188,6 @@ public class FilterFragment extends DialogFragment {
 
 
     }
-
-//    public ArrayList<Drug> filterByPurpose(int position) {
-//        for (int i = 0; i < unfilteredDrugs.size(); i++) {
-//            Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + mPurposes[position].toLowerCase());
-//            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(mPurposes[position].toLowerCase())) {
-//                filteredDrugs.add(unfilteredDrugs.get(i));
-//                Log.d(TAG, "DRUG ADDED: " + unfilteredDrugs.get(i));
-//            }
-//        }
-//
-//        Log.d(TAG, "PURPOSE SELECTED: " + mPurposes[position]);
-//        return filteredDrugs;
-//
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -207,10 +304,6 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-//        filteredDrugs.clear();
-//        unfilteredDrugs.clear();
-//        unfilteredDrugs.addAll(PharmTech.drugs);
-
         Context context = getActivity().getApplicationContext();
         CharSequence text = "FilterFragment onDismiss";
         int duration = Toast.LENGTH_SHORT;
@@ -222,10 +315,6 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//
-//        filteredDrugs.clear();
-//        unfilteredDrugs.clear();
-//        unfilteredDrugs.addAll(PharmTech.drugs);
 
         Context context = getActivity().getApplicationContext();
         CharSequence text = "FilterFragment onDismiss";
@@ -240,11 +329,6 @@ public class FilterFragment extends DialogFragment {
     public void onDetach() {
         super.onDetach();
 
-//
-//        filteredDrugs.clear();
-//        unfilteredDrugs.clear();
-//        unfilteredDrugs.addAll(PharmTech.drugs);
-
         Context context = getActivity().getApplicationContext();
         CharSequence text = "FilterFragment onDetach";
         int duration = Toast.LENGTH_SHORT;
@@ -257,11 +341,6 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
-//
-//        filteredDrugs.clear();
-//        unfilteredDrugs.clear();
-//        unfilteredDrugs.addAll(PharmTech.drugs);
-
         Context context = getActivity().getApplicationContext();
         CharSequence text = "FilterFragment onStop";
         int duration = Toast.LENGTH_SHORT;
@@ -276,12 +355,6 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//
-//
-//        filteredDrugs.clear();
-//        unfilteredDrugs.clear();
-//        unfilteredDrugs.addAll(PharmTech.drugs);
-
         Context context = getActivity().getApplicationContext();
         CharSequence text = "FilterFragment onDestroy";
         int duration = Toast.LENGTH_SHORT;
@@ -305,13 +378,5 @@ public class FilterFragment extends DialogFragment {
 
         return dialog;
     }
-
-//    public static ArrayList<Drug> cloneList(ArrayList<Drug> drugs) {
-//        ArrayList<Drug> clonedList = new ArrayList<Drug>(drugs.size());
-//        for (Drug drug : drugs) {
-//            clonedList.add(new Drug(drug));
-//        }
-//        return clonedList;
-//    }
 
 }

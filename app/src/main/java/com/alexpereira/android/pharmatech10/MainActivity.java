@@ -19,8 +19,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import static android.content.ContentValues.TAG;
-
 public class MainActivity extends AppCompatActivity implements FilterFragment.onPurposeSelectedListener {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -39,12 +37,9 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         unfilteredDrugs = new ArrayList<>();
         filteredDrugs = new ArrayList<>();
         unfilteredDrugs = cloneList(PharmTech.drugs);
-
-
 
         String[] mItemTitles;
 
@@ -102,46 +97,6 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-
-
-    public void filterDrugs(String drugPurposePicked, String drugCategoryPicked, String studyTopicPicked) {
-        filteredDrugs.clear();
-        for (int i = 0; i < unfilteredDrugs.size(); i++) {
-
-            // FILTER PURPOSE
-            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugPurposePicked.toLowerCase())) {
-                filteredDrugs.add(unfilteredDrugs.get(i));
-                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
-            }
-
-            // FILTER CATEGORY
-            if (unfilteredDrugs.get(i).getDrugCategory().toLowerCase().equals(drugCategoryPicked.toLowerCase())) {
-                filteredDrugs.add(unfilteredDrugs.get(i));
-                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
-            }
-
-            // FILTER STUDY TOPIC
-            if (unfilteredDrugs.get(i).getDrugCategory().toLowerCase().equals(studyTopicPicked.toLowerCase())) {
-                filteredDrugs.add(unfilteredDrugs.get(i));
-                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
-            }
-        }
-    }
-
-
-//    public void filterByCategory(String drugCategoryPicked) {
-//        filteredDrugs.clear();
-//        for (int i = 0; i < unfilteredDrugs.size(); i++) {
-//            Log.d(TAG, "DRUG.GETPUR: " + unfilteredDrugs.get(i).getDrugPurpose().toLowerCase() + " ?? " + drugCategoryPicked.toLowerCase());
-//            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugCategoryPicked.toLowerCase())) {
-//                filteredDrugs.add(unfilteredDrugs.get(i));
-//                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
-//            }
-//        }
-//
-//        Log.d(TAG, "PURPOSE SELECTED: " + drugCategoryPicked);
-//
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -247,6 +202,36 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
         Log.d(TAG, "PURPOSE BUNDLED: " + filteredDrugs);
     }
 
+
+    public void filterDrugs(String drugPurposePicked, String drugCategoryPicked, String studyTopicPicked) {
+
+        filteredDrugs.clear();
+        for (int i = 0; i < unfilteredDrugs.size(); i++) {
+
+
+            Log.d(TAG, ":)");
+
+            // FILTER PURPOSE
+            if (unfilteredDrugs.get(i).getDrugPurpose().toLowerCase().equals(drugPurposePicked.toLowerCase())) {
+                filteredDrugs.add(unfilteredDrugs.get(i));
+                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
+            }
+
+            // FILTER CATEGORY
+            if (unfilteredDrugs.get(i).getDrugCategory().toLowerCase().equals(drugCategoryPicked.toLowerCase())) {
+                filteredDrugs.add(unfilteredDrugs.get(i));
+                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
+            }
+
+            // FILTER STUDY TOPIC
+            if (unfilteredDrugs.get(i).getDrugStudyTopic().toLowerCase().equals(studyTopicPicked.toLowerCase())) {
+                filteredDrugs.add(unfilteredDrugs.get(i));
+                //Log.d(TAG, "DRUG ADDED: " + filteredDrugs.get(i));
+            }
+        }
+    }
+
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -261,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     }
 
     public static ArrayList<Drug> cloneList(ArrayList<Drug> drugs) {
-        ArrayList<Drug> clonedList = new ArrayList<Drug>(drugs.size());
+        ArrayList<Drug> clonedList = new ArrayList<>(drugs.size());
         for (Drug drug : drugs) {
             clonedList.add(new Drug(drug));
         }

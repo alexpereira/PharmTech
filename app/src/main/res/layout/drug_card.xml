@@ -48,7 +48,7 @@
             android:id="@+id/brand_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Brillinta®"
+            android:text="Brillinta &#174;"
             android:layout_toRightOf="@+id/brand_name_label"
             android:layout_marginLeft="60dp"/>
         <TextView
