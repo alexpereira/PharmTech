@@ -17,12 +17,13 @@ public class Drug implements Parcelable{
     private String mDrugSpecialConcern;
     private String mDrugCategory;
     private String mDrugStudyTopic;
+    private String mDrugNotes;
 
     public Drug() {
     }
 
     public Drug(Drug drug){
-
+        this.mDrugID = drug.getDrugID();
         this.mDrugBrand = drug.getDrugBrand();
         this.mDrugCategory = drug.getDrugCategory();
         this.mDrugDEASchedule = drug.getDrugDEASchedule();
@@ -30,6 +31,7 @@ public class Drug implements Parcelable{
         this.mDrugPurpose = drug.getDrugPurpose();
         this.mDrugSpecialConcern = drug.getDrugSpecialConcern();
         this.mDrugStudyTopic = drug.getDrugStudyTopic();
+        this.mDrugNotes = drug.getDrugNotes();
     }
 
     public void setDrugID(String val){ mDrugID = Integer.parseInt(val) ; }
@@ -40,6 +42,7 @@ public class Drug implements Parcelable{
     public void setDrugSpecialConcern(String val){ mDrugSpecialConcern = val; }
     public void setDrugCategory(String val){ mDrugCategory = val; }
     public void setDrugStudyTopic(String val){ mDrugStudyTopic = val; }
+    public void setDrugNotes(String val){ mDrugNotes = val; }
 
     public int getDrugID() { return mDrugID; }
     public String getDrugName() { return mDrugName; }
@@ -49,6 +52,7 @@ public class Drug implements Parcelable{
     public String getDrugSpecialConcern() { return mDrugSpecialConcern; }
     public String getDrugCategory() { return mDrugCategory; }
     public String getDrugStudyTopic() { return mDrugStudyTopic; }
+    public String getDrugNotes() { return mDrugNotes; }
 
 
 
@@ -67,6 +71,7 @@ public class Drug implements Parcelable{
         out.writeString(mDrugPurpose);
         out.writeString(mDrugSpecialConcern);
         out.writeString(mDrugStudyTopic);
+        out.writeString(mDrugNotes);
         
     }
 
@@ -82,6 +87,7 @@ public class Drug implements Parcelable{
     };
 
     private Drug(Parcel in) {
+        mDrugID = in.readInt();
         mDrugName = in.readString();
         mDrugBrand = in.readString();
         mDrugCategory = in.readString();
@@ -89,5 +95,6 @@ public class Drug implements Parcelable{
         mDrugPurpose = in.readString();
         mDrugSpecialConcern = in.readString();
         mDrugStudyTopic = in.readString();
+        mDrugNotes = in.readString();
     }
 }

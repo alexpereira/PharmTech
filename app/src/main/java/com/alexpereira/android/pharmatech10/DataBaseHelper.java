@@ -41,7 +41,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         boolean mDataBaseExist = checkDataBase();
         if(!mDataBaseExist)
         {
-            this.getReadableDatabase();
+            this.getWritableDatabase();
             this.close();
             try
             {

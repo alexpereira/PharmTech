@@ -48,12 +48,15 @@ public class PharmTech extends Application {
                         mDrugs.setDrugSpecialConcern(mCursor.getString(5));
                         mDrugs.setDrugCategory(mCursor.getString(6));
                         mDrugs.setDrugStudyTopic(mCursor.getString(7));
+                        mDrugs.setDrugNotes(mCursor.getString(8));
+                        Log.d(TAG, "DRUGS NOTES: " + mCursor.getString(8));
                         drugs.add(mDrugs);
                         count++;
 
                     } while (mCursor.moveToNext());
                     Log.d(TAG, "DRUGS TOTAL: " + count);
                 }
+                mCursor.close();
                 mDbHelper.close();
             }
 

@@ -64,6 +64,15 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
 
                 super.onDrawerClosed(drawerView);
                 Log.i(TAG, "OOOOOOOPEEEEEN");
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                FilterFragment f = (FilterFragment) fm.findFragmentByTag("filterTag");
+
+                if (f == null) {  // not added
+                    f = new FilterFragment();
+                    ft.add(R.id.filter_frame, f, "filterTag");
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                }
             }
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -172,7 +181,6 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
     public void onPurposeSelected(String drugPurposePicked, String drugCategoryPicked, String studyTopicPicked) {
         //If review fragment is open
 
-
         // Filters
         filterDrugs(drugPurposePicked, drugCategoryPicked, studyTopicPicked);
 
@@ -181,10 +189,10 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
         ReviewFragment newFragment = new ReviewFragment();
         Bundle args = new Bundle();
 
-        if(filteredDrugs.isEmpty())
-            args.putParcelableArrayList(ReviewFragment.ARG_PURPOSE, unfilteredDrugs);
+        if(filteredDrugs.isEmpty()) // If reset button is clicked
+            args.putParcelableArrayList(ReviewFragment.FILTERS, unfilteredDrugs);
         else
-            args.putParcelableArrayList(ReviewFragment.ARG_PURPOSE, filteredDrugs);
+            args.putParcelableArrayList(ReviewFragment.FILTERS, filteredDrugs);
 
         newFragment.setArguments(args);
 

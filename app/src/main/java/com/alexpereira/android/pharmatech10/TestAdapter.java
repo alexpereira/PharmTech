@@ -1,6 +1,8 @@
 package com.alexpereira.android.pharmatech10;
 
 import java.io.IOException;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -9,6 +11,9 @@ import android.util.Log;
 
 public class TestAdapter
 {
+    public static final String DATABASE_TABLE = "Druglist";
+    public static final String KEY_ROWID = "id";
+    public static final String KEY_NOTES = "Notes";
     protected static final String TAG = "DataAdapter";
 
     private final Context mContext;
@@ -75,4 +80,46 @@ public class TestAdapter
             throw mSQLException;
         }
     }
+//    public void updateTestData(String newNotes, int DrugID)
+//    {
+//        Log.d(TAG, "YOOOOOOOOOOOOOOOOOOO");
+//        try
+//        {
+//            String sql = "UPDATE Druglist SET Notes=" + newNotes + "' WHERE id=" + DrugID + ";";
+//
+//            Log.d(TAG, "UPDATE Druglist SET Notes='" + newNotes + "' WHERE id=" + DrugID + ";");
+//
+//            //mDb.execSQL(sql);
+//
+//            Cursor mCur = mDb.rawQuery(sql, null);
+//
+//            //mCur.moveToPosition(DrugID);
+//
+//            Log.d(TAG, "CHECK THIS OUT ->>>   " + mCur.moveToFirst() );
+//
+//            //return mCur;
+//        }
+//        catch (SQLException mSQLException)
+//        {
+//            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+//            throw mSQLException;
+//        }
+//    }
+
+    public boolean updateTestData(String newNotes, int DrugID) {
+        Log.d(TAG, "YOOOOOOOOOOOOOOOOOOO");
+        try
+        {
+            ContentValues args = new ContentValues();
+            args.put(KEY_NOTES, newNotes);
+            return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + DrugID, null) > 0;
+        }
+        catch (SQLException mSQLException)
+        {
+            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
+            throw mSQLException;
+        }
+
+    }
+
 }
