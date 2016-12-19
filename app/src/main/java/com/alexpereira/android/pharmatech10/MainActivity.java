@@ -1,6 +1,5 @@
 package com.alexpereira.android.pharmatech10;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -181,12 +178,9 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
 
     @Override
     public void onFilterSelected(String drugPurposePicked, String drugCategoryPicked, String studyTopicPicked) {
-        //If review fragment is open
 
         // Filters
         filterDrugs(drugPurposePicked, drugCategoryPicked, studyTopicPicked);
-
-
 
         int index = this.getFragmentManager().getBackStackEntryCount() - 1;
         FragmentManager.BackStackEntry backEntry = getFragmentManager().getBackStackEntryAt(index);
@@ -200,11 +194,7 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
             newFragment = new ReviewFragment();
         else
             newFragment = new HomeFragment();
-        //Fragment fragment = getFragmentManager().findFragmentByTag(tag);
 
-
-        // Create fragment and give it an argument for the selected article
-//        ReviewFragment newFragment = new ReviewFragment();
         Bundle args = new Bundle();
 
         if(filteredDrugs.isEmpty()) // If reset button is clicked
@@ -218,11 +208,8 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
 
         FragmentTransaction transaction = fm.beginTransaction();
 
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
         transaction.replace(R.id.content_frame, newFragment);
 
-        // Commit the transaction
         transaction.commit();
     }
 
