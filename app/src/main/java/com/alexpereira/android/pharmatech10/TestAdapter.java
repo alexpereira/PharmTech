@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class TestAdapter
 {
-    public static final String DATABASE_TABLE = "Druglist";
+    public static final String DATABASE_TABLE = "drugtable";
     public static final String KEY_ROWID = "id";
     public static final String KEY_NOTES = "Notes";
     protected static final String TAG = "DataAdapter";
@@ -65,7 +65,7 @@ public class TestAdapter
     {
         try
         {
-            String sql ="SELECT * FROM Druglist";
+            String sql ="SELECT * FROM drugtable";
 
             Cursor mCur = mDb.rawQuery(sql, null);
             if (mCur!=null)
