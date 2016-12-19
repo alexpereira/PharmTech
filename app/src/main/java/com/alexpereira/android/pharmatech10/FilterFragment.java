@@ -152,14 +152,14 @@ public class FilterFragment extends DialogFragment {
     private Button button;
 
 
-    onPurposeSelectedListener mCallback;
+    onFilterSelectedListener mCallback;
     private String mPurposePicked;
     private String mCategoryPicked;
     private String mStudyTopicPicked;
 
     // Container Activity must implement this interface
-    public interface onPurposeSelectedListener {
-        public abstract void onPurposeSelected(String purpose, String category, String study_topic);
+    public interface onFilterSelectedListener {
+        public abstract void onFilterSelected(String purpose, String category, String study_topic);
     }
 
     @Override
@@ -169,7 +169,7 @@ public class FilterFragment extends DialogFragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (onPurposeSelectedListener) activity;
+            mCallback = (onFilterSelectedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");
@@ -179,22 +179,12 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onCreate";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
-
-        // Initializing widgets
 
         purpose_spinner = (Spinner) view.findViewById(R.id.spinner1);
         category_spinner = (Spinner) view.findViewById(R.id.spinner2);
@@ -228,7 +218,7 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+                // do nothing
             }
 
         });
@@ -237,14 +227,13 @@ public class FilterFragment extends DialogFragment {
         category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // your code here
                 mCategoryPicked = mCategory[position];
                 dynamicButton();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+                // do nothing
             }
 
         });
@@ -259,7 +248,7 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+                // do nothing
             }
 
         });
@@ -269,19 +258,10 @@ public class FilterFragment extends DialogFragment {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCallback.onPurposeSelected(mPurposePicked, mCategoryPicked, mStudyTopicPicked);
+                mCallback.onFilterSelected(mPurposePicked, mCategoryPicked, mStudyTopicPicked);
                 dismiss();
             }
         });
-
-
-
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onCreateView";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
 
         return view;
 
@@ -304,77 +284,14 @@ public class FilterFragment extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onDismiss";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onDismiss";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onDetach";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onStop";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
     }
 
     // TODO: Figure out what the fuck is going on
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onDestroy";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        Context context = getActivity().getApplicationContext();
-        CharSequence text = "FilterFragment onCreateDialog";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
 
         return dialog;
     }

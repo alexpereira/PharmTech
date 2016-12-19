@@ -1,31 +1,25 @@
-<RelativeLayout
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/card_box"
+                 android:layout_height="match_parent"
+                 android:layout_width="match_parent">
 
 
-    >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Drug of The Day"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_marginTop="10dp"
-        android:textSize="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"/>
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_height="270dp"
         android:layout_width="match_parent"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_gravity="center"
+        android:maxWidth="340dp">
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -44,12 +38,14 @@
         </RelativeLayout>
 
         <View
+            android:id="@+id/line_break1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
             android:layout_marginTop="50dp"/>
 
         <RelativeLayout
+            android:id="@+id/card_info"
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:paddingLeft="16dp"
@@ -65,7 +61,7 @@
                 android:id="@+id/brand_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Brillinta®"
+                android:text="Brillinta &#174;"
                 android:layout_toRightOf="@+id/brand_name_label"
                 android:layout_marginLeft="60dp"/>
             <TextView
@@ -156,18 +152,28 @@
             android:background="@android:color/darker_gray"
             android:layout_marginTop="220dp"/>
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:id="@+id/drug_cover"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="220dp">
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:visibility="visible">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:textSize="40dp"
+                android:text="Ticagrelor"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:id="@+id/cover_name"
+                />
 
-
-
-        </RelativeLayout>
-
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
-</RelativeLayout>
 
+</LinearLayout>
 

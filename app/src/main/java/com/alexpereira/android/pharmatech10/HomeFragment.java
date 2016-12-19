@@ -35,8 +35,22 @@ public class HomeFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Set the Text to try this out
-        TextView t = (TextView) inflatedView.findViewById(R.id.drug_name);
-        t.setText(drug.getDrugName());
+        TextView drugName = (TextView) inflatedView.findViewById(R.id.drug_name);
+        TextView drugBrandName = (TextView) inflatedView.findViewById(R.id.brand_name);
+        TextView drugPurpose = (TextView) inflatedView.findViewById(R.id.purpose);
+        TextView drugDEA = (TextView) inflatedView.findViewById(R.id.DEA_schedule);
+        TextView drugSP = (TextView) inflatedView.findViewById(R.id.special_concerns);
+        TextView drugCategory = (TextView) inflatedView.findViewById(R.id.drug_category);
+        TextView drugST = (TextView) inflatedView.findViewById(R.id.study_topic);
+
+
+        drugName.setText(drug.getDrugName());
+        drugBrandName.setText(drug.getDrugBrand().replace("&#174;","®"));
+        drugPurpose.setText(drug.getDrugPurpose());
+        drugDEA.setText(drug.getDrugDEASchedule());
+        drugSP.setText(drug.getDrugSpecialConcern());
+        drugCategory.setText(drug.getDrugCategory());
+        drugST.setText(drug.getDrugStudyTopic());
 
         return inflatedView;
     }

@@ -14,10 +14,9 @@ import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper
 {
-    private static String TAG = "DataBaseHelper"; // Tag just for the LogCat window
-    //destination path (location) of our database on device
+    private static String TAG = "DataBaseHelper";
     private static String DB_PATH = "";
-    private static String DB_NAME ="PharmaTechDB.db";// Database name
+    private static String DB_NAME ="PharmaTechDB.db";
     private SQLiteDatabase mDataBase;
     private final Context mContext;
 
@@ -36,7 +35,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     public void createDataBase() throws IOException
     {
-        //If the database does not exist, copy it from the assets.
 
         boolean mDataBaseExist = checkDataBase();
         if(!mDataBaseExist)
@@ -45,7 +43,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
             this.close();
             try
             {
-                //Copy the database from assests
                 copyDataBase();
                 Log.e(TAG, "createDatabase database created");
             }
@@ -55,8 +52,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
             }
         }
     }
-
-    //Check that the database exists here: /data/data/your package/databases/Da Name
     private boolean checkDataBase()
     {
         File dbFile = new File(DB_PATH + DB_NAME);
@@ -64,7 +59,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
         return dbFile.exists();
     }
 
-    //Copy the database from assets
     private void copyDataBase() throws IOException
     {
         InputStream mInput = mContext.getAssets().open(DB_NAME);
@@ -81,13 +75,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
         mInput.close();
     }
 
-    //Open the database, so we can query it
     public boolean openDataBase() throws SQLException
     {
         String mPath = DB_PATH + DB_NAME;
         Log.v("mPath", mPath);
         mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
-        //mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
         return mDataBase != null;
     }
 
@@ -100,16 +92,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // No need to write the create table query.
-        // As we are using Pre built data base.
-        // Which is ReadOnly.
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // No need to write the update table query.
-        // As we are using Pre built data base.
-        // Which is ReadOnly.
-        // We should not update it as requirements of application.
     }
 }

@@ -19,9 +19,6 @@ public class PharmTech extends Application {
 
     private TestAdapter mDbHelper;
 
-    private int count =0;
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -49,12 +46,9 @@ public class PharmTech extends Application {
                         mDrugs.setDrugCategory(mCursor.getString(6));
                         mDrugs.setDrugStudyTopic(mCursor.getString(7));
                         mDrugs.setDrugNotes(mCursor.getString(8));
-                        Log.d(TAG, "DRUGS NOTES: " + mCursor.getString(8));
                         drugs.add(mDrugs);
-                        count++;
 
                     } while (mCursor.moveToNext());
-                    Log.d(TAG, "DRUGS TOTAL: " + count);
                 }
                 mCursor.close();
                 mDbHelper.close();

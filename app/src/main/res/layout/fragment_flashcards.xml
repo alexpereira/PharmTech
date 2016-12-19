@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-                android:id="@+id/fragment_flashcards">
+<android.support.v4.view.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Flashcards"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_marginTop="10dp"
-        android:textSize="20dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"/>
-</LinearLayout>
+</android.support.v4.view.ViewPager>

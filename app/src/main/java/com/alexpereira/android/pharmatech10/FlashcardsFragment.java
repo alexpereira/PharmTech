@@ -1,53 +1,65 @@
 package com.alexpereira.android.pharmatech10;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 
-public class FlashcardsFragment extends Fragment {
+public class FlashcardsFragment extends Fragment{
+    private static final String TAG = "FlashcardsFragment";
+    public static final String FILTERS = "filters";
+    private ArrayList<Drug> filteredDrugs = new ArrayList();
 
-    public  FlashcardsFragment(){
 
-    }
+    FlashcardsPagerAdapter mFlashcardsPagerAdapter;
+
+    private ArrayList<Drug> data = PharmTech.drugs;
+
+    ViewPager mViewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Flashcards");
-//        setHasOptionsMenu(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Flashcards");
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_flashcards, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_flashcards, container, false);
+        rootView.setTag(TAG);
+
+        mFlashcardsPagerAdapter = new FlashcardsPagerAdapter(data, getFragmentManager());
+
+        mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        mViewPager.setAdapter(mFlashcardsPagerAdapter);
+
+        return rootView;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.close_flashcards:
-//                Fragment fragment;
-//                fragment = new FilterFragment();
-//                FragmentManager fragmentManager = getFragmentManager();
-//                fragmentManager.beginTransaction().replace(R.id.filter_frame, fragment).commit();
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//
-//        }
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Bundle args = getArguments();
+        if (args != null) {
+
+            filteredDrugs = args.getParcelableArrayList(FILTERS);
+            data.clear();
+            for (Drug drug : filteredDrugs) {
+                data.add(drug);
+            }
+
+            mFlashcardsPagerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
 }

@@ -80,34 +80,8 @@ public class TestAdapter
             throw mSQLException;
         }
     }
-//    public void updateTestData(String newNotes, int DrugID)
-//    {
-//        Log.d(TAG, "YOOOOOOOOOOOOOOOOOOO");
-//        try
-//        {
-//            String sql = "UPDATE Druglist SET Notes=" + newNotes + "' WHERE id=" + DrugID + ";";
-//
-//            Log.d(TAG, "UPDATE Druglist SET Notes='" + newNotes + "' WHERE id=" + DrugID + ";");
-//
-//            //mDb.execSQL(sql);
-//
-//            Cursor mCur = mDb.rawQuery(sql, null);
-//
-//            //mCur.moveToPosition(DrugID);
-//
-//            Log.d(TAG, "CHECK THIS OUT ->>>   " + mCur.moveToFirst() );
-//
-//            //return mCur;
-//        }
-//        catch (SQLException mSQLException)
-//        {
-//            Log.e(TAG, "getTestData >>"+ mSQLException.toString());
-//            throw mSQLException;
-//        }
-//    }
 
     public boolean updateTestData(String newNotes, int DrugID) {
-        Log.d(TAG, "YOOOOOOOOOOOOOOOOOOO");
         try
         {
             ContentValues args = new ContentValues();
