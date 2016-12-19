@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -18,14 +19,21 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
     }
 
-    // GETTING RANDOM DRUG
-    Drug drug = PharmTech.drugs.get(new Random().nextInt(PharmTech.drugs.size()));
+    Calendar calendar = Calendar.getInstance();
+    int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+    Drug drug;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("Home");
         setHasOptionsMenu(true);
+
+        if (dayOfYear < 200)
+            drug = PharmTech.drugs.get(dayOfYear);
+        else
+            drug = PharmTech.drugs.get(dayOfYear - 200);
+
     }
 
     @Override
