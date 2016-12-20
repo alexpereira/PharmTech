@@ -173,6 +173,18 @@ public class MainActivity extends AppCompatActivity implements FilterFragment.on
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().addToBackStack("Flashcards").replace(R.id.content_frame, fragment).commit();
         }
+        if (position == 3) {
+            showMenu(true);
+            fragment = new MultipleChoiceFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        }
+        if (position == 4) {
+            showMenu(true);
+            fragment = new MixAndMatchFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 

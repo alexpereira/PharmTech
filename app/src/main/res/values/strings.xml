@@ -4,10 +4,20 @@
         <item>Home</item>
         <item>Review</item>
         <item>Flashcards</item>
+        <item>Multiple Choice</item>
+        <item>Mix and Match</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="purposeSpinner">Purpose</string>
     <string name="study_by">Study by</string>
+
+    <!--string questions-->
+    <string name = "schedule_question"> has a DEA Schedule of</string>
+    <string name="purpose_question"> The purpose of the drug </string>
+    <string name="naming_questions1"> What is the brand name of the drug </string>
+    <string name="naming_questions2">What is the generic name of the drug <!--in code this will be a get--></string>
+    <string name="catagory_questions"> is a type of </string>
+    <string name="special_concerns_question"> has a special concern which is </string>
 
 </resources>
